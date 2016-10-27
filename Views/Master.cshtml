@@ -1,7 +1,8 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
-    Layout = null;
-	var home = @CurrentPage.Site();
+  Layout = null;
+  var home = @CurrentPage.Site();
+  var selection = CurrentPage.Ancestors();
 }
 
 <!DOCTYPE html>
@@ -56,17 +57,29 @@
         <a href="#" class="cross"><span></span></a>
       </div>
     </header>
-	
+
+    @if (selection.Any())
+    {
+    <ul class="breadcrumbs">
+        @foreach (var item in selection.OrderBy("Level"))
+        {
+        <li><a href="@item.Url">@item.Name</a> <span class="divider">/</span></li>
+        }
+    </ul>
+    }
     @RenderBody()
 
     <footer class="field dark">
-      <div class="container">
-        <div class="row">
-			
-		  @{ Html.RenderPartial("BottomNavigation"); }
+        <div class="container">
+            <div class="row">
 
+                @{ Html.RenderPartial("BottomNavigation"); }
+
+            </div>
         </div>
-      </div>
+        <div>
+            <p>@home.Disclaimer</p>
+        </div>
     </footer>
     
     <!-- Javascripts -->

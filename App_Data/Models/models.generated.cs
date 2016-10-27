@@ -19,8 +19,8 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "85bc52b31495f0a9")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.3")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "7edb49eb3dcc7fbc")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
 
 namespace Umbraco.Web.PublishedContentModels
 {
@@ -28,9 +28,6 @@ namespace Umbraco.Web.PublishedContentModels
 	/// <summary>Blog Post</summary>
 	public partial interface IBlogPost : IPublishedContent
 	{
-		/// <summary>Author</summary>
-		string Author { get; }
-
 		/// <summary>Content</summary>
 		Newtonsoft.Json.Linq.JToken Content { get; }
 
@@ -62,18 +59,6 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
-
-		///<summary>
-		/// Author
-		///</summary>
-		[ImplementPropertyType("author")]
-		public string Author
-		{
-			get { return GetAuthor(this); }
-		}
-
-		/// <summary>Static getter for Author</summary>
-		public static string GetAuthor(IBlogPost that) { return that.GetPropertyValue<string>("author"); }
 
 		///<summary>
 		/// Content
@@ -167,6 +152,15 @@ namespace Umbraco.Web.PublishedContentModels
 		public Newtonsoft.Json.Linq.JToken Content
 		{
 			get { return this.GetPropertyValue<Newtonsoft.Json.Linq.JToken>("content"); }
+		}
+
+		///<summary>
+		/// Disclaimer
+		///</summary>
+		[ImplementPropertyType("disclaimer")]
+		public IHtmlString Disclaimer
+		{
+			get { return this.GetPropertyValue<IHtmlString>("disclaimer"); }
 		}
 
 		///<summary>
@@ -378,15 +372,6 @@ namespace Umbraco.Web.PublishedContentModels
 		public DateTime StartDate
 		{
 			get { return this.GetPropertyValue<DateTime>("startDate"); }
-		}
-
-		///<summary>
-		/// Author
-		///</summary>
-		[ImplementPropertyType("author")]
-		public string Author
-		{
-			get { return BlogPost.GetAuthor(this); }
 		}
 
 		///<summary>

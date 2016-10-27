@@ -1,6 +1,21 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
-    Layout = "Master.cshtml";
+  Layout = "Master.cshtml";
+  
+  var eventsPage = Umbraco.Content(1098);
 }
 
-@CurrentPage.GetGridHtml("content", "fanoe")
+<div role="content">
+    <section class="light blogarchive equalizer">
+        <h1>Blog Items</h1>
+        @Html.Partial("BlogOverviewPartial")
+    </section>
+</div>
+
+<div role="content">
+    <section class="light blogarchive equalizer">
+        <h1>Events</h1>
+        @Html.Partial("EventsOverviewPartial")
+    </section>
+</div>
+
